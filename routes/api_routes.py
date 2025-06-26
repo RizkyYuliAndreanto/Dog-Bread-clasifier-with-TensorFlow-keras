@@ -107,20 +107,17 @@ def predict():
         print(f"Error saat memproses permintaan prediksi: {e}")
         return jsonify({'error': f'Terjadi kesalahan saat memproses gambar: {str(e)}'}), 500 # Internal Server Error
 
-# --- ROUTE UNTUK MENGAMBIL HISTORY KLASIFIKASI ---
+# --- ROUTE UNTUK MENGAMBIL HISTORY KLASIFIKASI (SEKARANG PUBLIK) ---
 @api_bp.route('/history', methods=['GET'])
-@jwt_required() # <-- TETAP PROTEKSI: Rute ini membutuhkan JWT yang valid (hanya user login)
+# @jwt_required() # <-- PERUBAHAN DI SINI: DECORATOR INI DIHAPUS UNTUK AKSES PUBLIK PENUH
 def get_history():
     """
-    Rute untuk mengambil history prediksi ras anjing untuk user yang terautentikasi.
-    Membutuhkan autentikasi JWT.
+    Rute untuk mengambil SEMUA history prediksi ras anjing (publik).
+    Tidak memerlukan autentikasi JWT.
     """
-    # Mendapatkan ID pengguna dari token JWT yang sudah diverifikasi
-    current_user_id = get_jwt_identity() 
-
     try:
-        # Ambil history dari database menggunakan service, filter berdasarkan user_id
-        history_list = ClassificationService.get_user_history(current_user_id) # <-- KEMBALI KE get_user_history
+        # Panggil get_all_history untuk mengambil semua data history
+        history_list = ClassificationService.get_all_history() # <-- Panggil fungsi baru ini
         return jsonify(history_list), 200 # OK
     except Exception as e:
         print(f"Error saat mengambil history: {e}")

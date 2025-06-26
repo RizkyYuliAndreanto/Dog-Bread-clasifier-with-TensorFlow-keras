@@ -1,6 +1,6 @@
 # my_dog_breed_classifier/app.py
 
-from flask import Flask, jsonify # Import Flask dan jsonify
+from flask import Flask, jsonify
 import os
 from flask_cors import CORS # Import CORS (sudah di extensions, tapi ini untuk inisialisasi di sini)
 
@@ -30,6 +30,7 @@ def create_app():
     
     # Inisialisasi CORS dengan aplikasi Flask.
     # Tentukan origins secara eksplisit saat supports_credentials=True
+    # http://localhost:5173 adalah default development server untuk Vue 3 (Vite)
     cors.init_app(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"], supports_credentials=True, allow_headers=["Authorization", "Content-Type"])
 
     # Inisialisasi Flask-Migrate dengan aplikasi Flask dan instance database.

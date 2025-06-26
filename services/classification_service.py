@@ -47,10 +47,10 @@ class ClassificationService:
         Mengambil history prediksi untuk pengguna tertentu dari database.
         Mengembalikan list of dictionaries.
         """
-        # Penting: Jika user_id adalah None, rute ini TIDAK BOLEH dipanggil.
-        # Frontend harus mencegah akses ke rute history jika tidak login.
+        # Penting: Jika user_id adalah None, ini seharusnya tidak dipanggil jika Anda ingin filter per user
+        # Untuk rute /api/history yang publik, kita menggunakan get_all_history()
         if user_id is None: 
-            print("Peringatan: get_user_history dipanggil dengan user_id None. Frontend harus mencegah ini.")
+            print("Peringatan: get_user_history dipanggil dengan user_id None. Gunakan get_all_history untuk publik.")
             return [] 
 
         print(f"DEBUG: Memanggil get_user_history() untuk user_id: {user_id}...") # DEBUG LINE 5
@@ -80,7 +80,6 @@ class ClassificationService:
     def get_all_history():
         """
         Mengambil SEMUA history prediksi dari database (untuk akses publik).
-        Fungsi ini tidak akan lagi dipanggil oleh rute /api/history yang dilindungi.
         Mengembalikan list of dictionaries.
         """
         print("DEBUG: Memanggil get_all_history()...") # DEBUG LINE 9

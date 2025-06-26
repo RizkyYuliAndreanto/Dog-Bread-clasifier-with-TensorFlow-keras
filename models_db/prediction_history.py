@@ -8,7 +8,7 @@ class PredictionHistory(db.Model):
     __tablename__ = 'prediction_history' # Nama tabel di database
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) # Foreign Key ke tabel users
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True) # Foreign Key ke tabel users
     timestamp = db.Column(db.DateTime, nullable=False, default=db.func.now()) # Waktu prediksi
     image_filename = db.Column(db.String(255), nullable=False) # Nama file gambar di folder static/history_images
     image_url = db.Column(db.String(255), nullable=False) # URL relatif gambar untuk frontend
