@@ -1,0 +1,17 @@
+# Abaikan environment lokal
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Abaikan model dan data
+models/
+data/
+instance/
+
+# Abaikan file besar dan binary
+*.keras
+*.dll
+*.pyd
+*.exe
+

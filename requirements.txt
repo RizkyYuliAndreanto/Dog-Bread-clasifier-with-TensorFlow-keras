@@ -1,0 +1,11 @@
+Flask
+tensorflow
+numpy
+Pillow
+pandas
+Flask-SQLAlchemy
+Flask-JWT-Extended
+Flask-Cors
+PyMySQL
+python-dotenv 
+Werkzeug
