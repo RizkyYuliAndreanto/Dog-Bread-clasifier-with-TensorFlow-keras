@@ -11,9 +11,9 @@ class Config:
 
    
     SECRET_KEY = os.environ.get('SECRET_KEY', '1a2b3c4d5e6f7g8h9i0j11213141516171819202122232425')
-    DEBUG = True # Atur ke False untuk produksi
-    HOST = '0.0.0.0' # Host ini membuat server bisa diakses dari IP manapun di jaringan lokal.
-    PORT = 5000 # Port tempat aplikasi Flask akan berjalan.
+    DEBUG = True 
+    HOST = '0.0.0.0'
+    PORT = 5000
 
     # --- Konfigurasi Database (MySQL via PyMySQL) ---
     # String koneksi ke database MySQL Anda.
@@ -22,12 +22,8 @@ class Config:
     # Ganti 'root' dan '' jika Anda mengubah user/password default Laragon.
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'mysql+pymysql://root:@localhost:3306/dog_classifier_db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False # Menonaktifkan sistem pelacakan modifikasi objek SQLAlchemy (disarankan untuk kinerja)
-
-    # --- Konfigurasi JWT (JSON Web Tokens) ---
-    # JWT_SECRET_KEY: Harus berbeda dari Flask's SECRET_KEY dan harus rahasia!
-    # Nilai default ini HARUS SAMA PERSIS dengan nilai JWT_SECRET_KEY di .flaskenv Anda.
-    # Ini adalah langkah KRUSIAL untuk mengatasi 401 UNAUTHORIZED.
+    SQLALCHEMY_TRACK_MODIFICATIONS = False 
+    
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'a9b8c7d6e5f4g3h2i1j0192837465abcd1234567890abcdef')
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=3) # <-- DISINI KADALUARSA TOKEN DIATUR KE 1 JAM
     # JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30) # Opsional: untuk refresh token yang lebih lama
