@@ -1,71 +1,31 @@
-Dog Breed Classifier Backend
-Aplikasi backend berbasis Flask untuk mengklasifikasikan ras anjing dari gambar menggunakan model Convolutional Neural Network (CNN) yang telah dilatih. Aplikasi ini terintegrasi dengan database MySQL untuk menyimpan riwayat prediksi dan menyediakan API endpoint untuk klasifikasi gambar dan pengambilan data historis.
+# Dog Breed Classifier Backend
 
-Daftar Isi
-Fitur
+Aplikasi backend berbasis Flask untuk mengklasifikasikan ras anjing dari gambar menggunakan model Convolutional Neural Network (CNN) yang telah dilatih. Aplikasi ini terintegrasi dengan database MySQL untuk menyimpan riwayat prediksi dan menyediakan endpoint API untuk klasifikasi gambar dan pengambilan data historis.
 
-Struktur Proyek
+## Daftar Isi
+- [Fitur](#fitur)
+- [Struktur Proyek](#struktur-proyek)
+- [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+- [Pengaturan dan Instalasi](#pengaturan-dan-instalasi)
+  - [Prasyarat](#prasyarat)
+  - [Pengaturan Database](#pengaturan-database)
+  - [Variabel Lingkungan](#variabel-lingkungan)
+  - [Instalasi Dependensi](#instalasi-dependensi)
+  - [Menjalankan Migrasi](#menjalankan-migrasi)
+  - [Mempersiapkan Model AI dan Pemetaan Kelas](#mempersiapkan-model-ai-dan-pemetaan-kelas)
+  - [Menjalankan Aplikasi](#menjalankan-aplikasi)
+- [Endpoint API](#endpoint-api)
+- [Cara Kerja Program](#cara-kerja-program)
 
-Teknologi yang Digunakan
+## Fitur
+- Klasifikasi Ras Anjing: Memprediksi ras anjing dari gambar yang diunggah menggunakan model CNN pra-terlatih (ResNet50V2)
+- Riwayat Prediksi: Menyimpan hasil klasifikasi (gambar, ras yang diprediksi, tingkat kepercayaan, dan ID pengguna) dalam database MySQL
+- Otentikasi Pengguna (JWT): Mengintegrasikan Flask-JWT-Extended untuk otentikasi pengguna opsional
+- CORS Enabled: Dikonfigurasi untuk menangani Cross-Origin Resource Sharing
+- Migrasi Database: Menggunakan Flask-Migrate untuk pengelolaan skema database
+- Struktur Modular: Diatur ke dalam Blueprints, layanan, dan modul utilitas
 
-Pengaturan dan Instalasi
-
-Prasyarat
-
-Pengaturan Database
-
-Variabel Lingkungan
-
-Menginstal Dependensi
-
-Menjalankan Migrasi
-
-Mempersiapkan Model AI dan Pemetaan Kelas
-
-Menjalankan Aplikasi
-
-API Endpoints
-
-Cara Kerja Program (Penjelasan Kode Rinci)
-
-Pelatihan Model AI (dog-breed-classifier.ipynb)
-
-Inisialisasi Aplikasi (app.py)
-
-Konfigurasi Aplikasi (config.py)
-
-Ekstensi Flask (extensions.py)
-
-Model Database (models_db/prediction_history.py)
-
-Pemuatan Model AI (utils/model_loader.py)
-
-Layanan Klasifikasi (services/classification_service.py)
-
-Rute API (routes/api_routes.py)
-
-Rute Utama (routes/main_routes.py)
-
-Titik Masuk Flask CLI (run.py)
-
-Kontribusi
-
-Lisensi
-
-Fitur
-Klasifikasi Ras Anjing: Memprediksi ras anjing dari gambar yang diunggah menggunakan model CNN pra-terlatih (ResNet50V2).
-
-Riwayat Prediksi: Menyimpan hasil klasifikasi (gambar, ras yang diprediksi, tingkat kepercayaan, dan ID pengguna) dalam database MySQL.
-
-Otentikasi Pengguna (JWT): Mengintegrasikan Flask-JWT-Extended untuk otentikasi pengguna opsional pada endpoint prediksi. Pengguna tamu juga dapat melakukan prediksi.
-
-CORS Enabled: Dikonfigurasi untuk menangani Cross-Origin Resource Sharing untuk integrasi frontend yang mulus.
-
-Migrasi Database: Menggunakan Flask-Migrate untuk pengelolaan skema database yang mudah.
-
-Struktur Modular: Diatur ke dalam Blueprints, layanan, dan modul utilitas untuk pemeliharaan yang lebih baik.
-
-Penyimpanan Gambar: Sementara menyimpan gambar yang diunggah untuk diproses dan secara permanen menyimpannya (atau salinannya) untuk melihat riwayat.
+## Struktur Proyek
 
 Struktur Proyek
 my_dog_breed_classifier/
@@ -141,7 +101,7 @@ Misalnya, jika Anda menggunakan Laragon, Anda dapat membuat database bernama dog
 CREATE DATABASE dog_classifier_db;
 
 Pengguna Database (Opsional tetapi Direkomendasikan):
-Jika Anda tidak menggunakan pengguna root default tanpa kata sandi (umum dalam pengembangan lokal dengan Laragon), buat pengguna khusus dan berikan hak istimewa ke database Anda.
+Jika Anda tidak menggunakan pengguna root default tanpa kata sandang (umum dalam pengembangan lokal dengan Laragon), buat pengguna khusus dan berikan hak istimewa ke database Anda.
 
 CREATE USER 'your_db_user'@'localhost' IDENTIFIED BY 'your_db_password';
 GRANT ALL PRIVILEGES ON dog_classifier_db.* TO 'your_db_user'@'localhost';
@@ -210,9 +170,8 @@ Menggunakan flask run (Direkomendasikan untuk Pengembangan):
 Setel variabel lingkungan FLASK_APP dan kemudian jalankan:
 
 export FLASK_APP=run.py # Untuk Linux/macOS
-# set FLASK_APP=run.py # Untuk Windows CMD
-# $env:FLASK_APP="run.py" # For Windows PowerShell
-
+set FLASK_APP=run.py # Untuk Windows CMD
+$env:FLASK_APP="run.py" # Untuk Windows PowerShell
 flask run
 
 Ini akan memulai server pengembangan Flask, biasanya di http://127.0.0.1:5000/.
@@ -222,7 +181,6 @@ Menjalankan Langsung app.py:
 python app.py
 
 Ini juga memulai server pengembangan. File app.py dikonfigurasi untuk berjalan langsung saat dieksekusi sebagai skrip utama.
-
 Anda akan melihat output yang menunjukkan bahwa model AI dan pemetaan kelas telah berhasil dimuat:
 
 Model AI berhasil dimuat dari: /path/to/my_dog_breed_classifier/models/dog_breed_classifier_final_model.keras
@@ -354,7 +312,6 @@ print("Memulai pra-pemrosesan data gambar...")
 
 image_paths = []
 labels = []
-
 for breed_folder in os.listdir(path_ke_gambar):
     breed_path = os.path.join(path_ke_gambar, breed_folder)
     if os.path.isdir(breed_path):
@@ -451,7 +408,6 @@ Bagian ini membangun arsitektur model menggunakan pendekatan transfer learning d
 print("Membangun model CNN dengan Transfer Learning...")
 
 base_model = ResNet50V2(weights='imagenet', include_top=False, input_shape=(IMG_HEIGHT, IMG_WIDTH, 3))
-
 for layer in base_model.layers:
     layer.trainable = False
 
@@ -567,7 +523,6 @@ history: Objek yang mengembalikan riwayat pelatihan, termasuk loss dan accuracy 
 Setelah pelatihan, model dievaluasi pada data pengujian yang sepenuhnya tidak terlihat untuk mengukur kinerja sebenarnya. Hasil pelatihan juga divisualisasikan.
 
 print("--- Memulai evaluasi model ---")
-
 try:
     model.load_weights(checkpoint_path)
     print(f"Berhasil memuat bobot model terbaik dari: {checkpoint_path}")
@@ -668,7 +623,7 @@ def create_app():
     # Inisialisasi Ekstensi dengan Aplikasi Flask
     db.init_app(app)
     jwt.init_app(app)
-    cors.init_app(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"], supports_credentials=True, allow_headers=["Authorization", "Content-Type"])
+    cors.init_app(app, origins=["http://localhost:5173", "[http://127.0.0.1:5173](http://127.0.0.1:5173)"], supports_credentials=True, allow_headers=["Authorization", "Content-Type"])
     migrate.init_app(app, db)
 
     # JWT CALLBACKS GLOBAL
@@ -1358,4 +1313,3 @@ Kontribusi dipersilakan! Silakan buka issue atau kirim pull request.
 
 Lisensi
 Proyek ini dilisensikan di bawah Lisensi MIT.
-
